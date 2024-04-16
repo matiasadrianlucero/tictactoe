@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+
+        function gameStart(){
+            function Player(name){
+                this.name=name;
+            }
+            player1=new Player(document.getElementById("player1Input").value);
+            player2=new Player(document.getElementById("player2Input").value);
+
+            if(document.getElementById("menu").style.display == "block") {
+                document.getElementById("menu").style.display = "none"
+                document.getElementById("ticTacToe").style.display = "block"  
+            } else {
+                document.getElementById("menu").style.display = "block"
+                document.getElementById("ticTacToe").style.display = "none"  
+            }
+            document.getElementById("resetButton").style.display="none"
+            document.getElementById("turn").textContent=player1.name + " O"
+        }
+        
+
+        const ticTacToe=(function(){
+            let gameboard = [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+                ];
+                let clearTable =[
+                    ["", "", ""],
+                    ["", "", ""],
+                    ["", "", ""]
+                ];
+                let winner="";
+                let turn= 0;
+                let mark="X";
+            let resetVar=()=>{
+                gameboard = [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+                ];
+                clearTable =[
+                    ["", "", ""],
+                    ["", "", ""],
+                    ["", "", ""]
+                ];
+                winner="";
+                turn= 0;
+                mark="X";
+            }
+
+            const checkWinState=()=> {
+                    for (let i=0;i<3;i++){
+                        if(gameboard[i][0]=="X" && gameboard[i][1]=="X" && gameboard[i][2]||gameboard[0][i]=="X" && gameboard[1][i]=="X"&&gameboard[2][i]=="X"){
+                                winner="X" + player1.name
+                                
+                                document.getElementById("turn").textContent="WINNER " + player1.name
+                                document.getElementById("resetButton").style.display="block"
+                                console.log(gameboard)
+                        }
+                        if(gameboard[i][0]=="O" && gameboard[i][1]=="O" && gameboard[i][2]||gameboard[0][i]=="O" && gameboard[1][i]=="O" && gameboard[2][i]=="O"){
+                                winner="O" + player2.name
+                                document.getElementById("turn").textContent="WINNER " + player2.name
+                                document.getElementById("resetButton").style.display="block"
+                                console.log(gameboard)
+                        }
+                        console.log(i)
+                    }
+                    if(gameboard[0][0]=="X" && gameboard[1][1]=="X" && gameboard[2][2]=="X"||gameboard[0][2]=="X" && gameboard[1][1]=="X" && gameboard[2][0]=="X"){
+                        winner="X" + player1.name
+                        document.getElementById("turn").textContent="WINNER " + player1.name
+                        document.getElementById("resetButton").style.display="block"
+                        console.log(gameboard)
+                    } 
+                    if(gameboard[0][0]=="O" && gameboard[1][1]=="O" && gameboard[2][2]=="O"||gameboard[0][2]=="O" && gameboard[1][1]=="O" && gameboard[2][0]=="O"){
+                        winner="O" + player2.name
+                        document.getElementById("turn").textContent="WINNER " + player2.name
+                        document.getElementById("resetButton").style.display="block"
+                        console.log(gameboard)
+                    }
+                    console.log(turn)
+                    if(turn==9 && winner==""){
+                        winner="TIE";
+                        document.getElementById("turn").textContent="TIE"
+                        document.getElementById("resetButton").style.display="block"
+                        console.log(gameboard)
+                    }
+            };
+
+            const increaseTurn = () => turn++;
+            const markSpot=(posX,posY,id)=> {
+                if(gameboard[posX][posY]==""){
+                    gameboard[posX][posY]=mark;
+                    clearTable[posX][posY]=id;
+                    console.log(clearTable)
+                    if(mark=="X"){
+                        document.getElementById("turn").textContent=player2.name + " " + mark
+                        mark="O"
+                        document.getElementById(id).textContent=mark    
+                    } else {
+                        document.getElementById("turn").textContent=player1.name + " " +  mark
+                        mark="X"
+                        document.getElementById(id).textContent=mark
+                    }
+                }
+                    increaseTurn();
+                    checkWinState();
+            }
+            
+            const resetTTT=() => {
+             
+                for(let i=0;i<3;i++){
+                    for(let j=0;j<3;j++){
+                        if(clearTable[i][j]!="") {
+                            document.getElementById(clearTable[i][j]).textContent=""    
+                        }
+                        
+                    }   
+                }
+                resetVar()
+                gameStart()
+            }
+            return{checkWinState,increaseTurn,markSpot,resetTTT}
+        })()
+
+    </script>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <form>
+            <h2 class="alignCenter">TicTacToe</h2>
+            <label for="player1Input">Player 1</label><input class="alignCenter" required name="player1Input" id="player1Input">
+            <label for="player2Input">Player 2</label><input class="alignCenter" required name="player2Input" id="player2Input">
+            <h3 class="alignCenter" onclick="event.preventDefault();gameStart()">Start</h3>
+        </form>
+    </div>
+
+    <div class="ticTacToe" id="ticTacToe">
+        <div class="vsPanel">Turn: <h4 id="turn"></h4>  </div>
+        <div>
+            <button onclick="ticTacToe.markSpot(0,0,'topLeft')" class="topLeft" ><div id="topLeft"></div></button>
+            <button onclick="ticTacToe.markSpot(0,1,'topMid')" class="topMid"  id="topMid"><div ></div></button>
+            <button onclick="ticTacToe.markSpot(0,2,'topRight')" class="topRight"  id="topRight"><div></div></button>  
+         </div>
+        
+         <div>    
+            <button onclick="ticTacToe.markSpot(1,0,'midLeft')" class="midLeft"  id="midLeft"><div ></div> </button>   
+            <button onclick="ticTacToe.markSpot(1,1,'midMiddle')" class="midMiddle"  id="midMiddle"><div ></div></button>     
+            <button onclick="ticTacToe.markSpot(1,2,'midRight')" class="midRight"  id="midRight"><div ></div></button>
+        </div>
+        
+        <div>    
+            <button onclick="ticTacToe.markSpot(2,0,'botLeft')" class="botLeft"  id="botLeft"><div ></div> </button>
+            <button onclick="ticTacToe.markSpot(2,1,'botMiddle')" class="botMiddle"  id="botMiddle"><div></div> </button>
+            <button onclick="ticTacToe.markSpot(2,2,'botRight')" class="botRight"  id="botRight"><div></div></button>
+            
+         </div>
+         <h3 class="alignCenter" onclick="ticTacToe.resetTTT()" id="resetButton">Reset</h3>
+     </div>
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+.topLeft {
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+.topMid{
+    border-bottom: 2px solid black;
+}
+.topRight{
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+}
+.midLeft {    
+    border-right: 2px solid black;
+}
+.midRight{
+    border-left: 2px solid black;
+}
+.botLeft {
+    display: inline-block;
+    
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
+.botMiddle {
+    display: inline-block;
+    
+    border-top: 2px solid black;
+}
+.botRight {
+    display: inline-block;
+    
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+}
+.ticTacToe {
+    margin: auto;
+    margin-top: 10rem;
+    align-items: center;
+    text-align: center;
+    display: none;
+}
+.menu {
+    display: block;
+}
+button {
+    padding: 1rem;
+    display: inline-block;
+    border: none;
+    width: 3rem; /* Adjust the width as needed */
+    height: 3rem; /* Adjust the height as needed */
+    
+    vertical-align: middle;
+    line-height: 1rem; /* This should match the height of the button */
+    font-size: 24px;
+}
+body {
+    margin: auto;
+    width: 10%;
+    margin-top: 10rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.alignCenter{
+    
+    align-items: center;
+    text-align: center;
+}
+.vsPanel {
+    align-items: center;
+    text-align: center; 
+}
+#resetButton {
+    display: none;
+}
